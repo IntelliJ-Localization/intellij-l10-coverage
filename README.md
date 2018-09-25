@@ -1,7 +1,7 @@
 [![official JetBrains project](http://jb.gg/badges/official-plastic.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 
 IntelliJ l10n Coverage Plugin
-========================
+=============================
 
 Gradle plugin to generate coverage report for localization of .properties files.
 
