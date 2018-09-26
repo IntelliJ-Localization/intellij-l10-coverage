@@ -4,6 +4,7 @@ plugins {
     `kotlin-dsl`
     java
 
+    `maven-publish`
     id("com.gradle.plugin-publish") version "0.10.0"
 }
 
@@ -57,6 +58,15 @@ pluginBundle {
         }
     }
 
+}
+
+
+
+publishing {
+
+    repositories {
+        mavenLocal()
+    }
 }
 
 

@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringEscapeUtils.unescapeJava
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.reflect.TypeOf
 import org.gradle.api.tasks.TaskAction
 import org.jacoco.core.analysis.ISourceFileCoverage
 import org.jacoco.core.data.ExecutionData
@@ -20,6 +21,7 @@ import org.jacoco.report.DirectorySourceFileLocator
 import org.jacoco.report.xml.XMLFormatter
 import java.io.File
 import java.io.FileOutputStream
+import java.lang.IllegalStateException
 import java.nio.file.Paths
 
 /**
@@ -58,12 +60,14 @@ open class LocalizationCoveragePlugin: Plugin<Project> {
  * @author traff
  */
 open class LocalizationCoverageTask: DefaultTask() {
-    lateinit var outputDir: String
-    lateinit var packagePrefix: String
-    lateinit var dir: String
-
     @TaskAction
     fun report() {
+        val ext = project.extensions.findByType(TypeOf.typeOf(LocalizationCoverageExtension::class.java)) ?: throw IllegalStateException("coverage extension undefined")
+
+        val outputDir: String = ext.outputDir
+        val packagePrefix: String = ext.packagePrefix
+        val dir: String = ext.dir
+
         val formatter = XMLFormatter()
 
         val file = File(outputDir, "reports/jacoco/test/jacocoTestReport.xml")
